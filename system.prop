@@ -1,0 +1,7 @@
+#
+# system.prop for lt02
+#
+
+# Display
+ro.lcd_min_brightness=20
+ro.sf.lcd_density=160
