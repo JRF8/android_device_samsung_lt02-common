@@ -40,3 +40,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/egl/gfx.cfg:system/etc/gfx.cfg
+
+# Rootdir
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,${COMMON_PATH}/rootdir/,root/)
