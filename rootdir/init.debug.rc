@@ -1,0 +1,8 @@
+on fs 
+    start cache_debug
+
+service cache_debug /system/bin/logcat -f /cache/debug.txt
+    class main
+    user root
+    group system
+    disabled
