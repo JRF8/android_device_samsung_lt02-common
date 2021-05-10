@@ -1,3 +1,4 @@
+import init.debug.rc
 import init.pxa988.sensor.rc
 import init.pxa988.tel.rc
 import init.pxa988.usb.rc
