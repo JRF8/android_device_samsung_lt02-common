@@ -1,0 +1,251 @@
+import init.pxa988.sensor.rc
+import init.pxa988.tel.rc
+import init.pxa988.usb.rc
+import init.wifi.rc
+
+on init
+    # Create bootdevice symlink
+    symlink /dev/block/platform/sdhci-pxav3.2 /dev/block/bootdevice
+    mkdir /efs 0771 radio system
+    write /proc/sys/vm/legacy_va_layout 1
+
+    # for control LCD backlight
+    chown system system /sys/class/backlight/emei-bl/brightness
+    chmod 0644 /sys/class/backlight/backlight-0/brightness
+
+    chown system system /sys/class/backlight/panel/max_brightness
+    chmod 0660 /sys/class/backlight/panel/max_brightness
+    chown system system /sys/class/backlight/panel/brightness
+    chmod 0660 /sys/class/backlight/panel/brightness
+    chown system system /sys/class/timed_output/vibrator/enable
+    chown system system /sys/class/backlight/panel/auto_brightness
+
+    # for KeyLED	
+    chown system system /sys/class/sec/sec_touchkey/brightness
+    chmod 0664 /sys/class/sec/sec_touchkey/brightness
+    
+    # for TSP cmd	
+    chown system system /sys/class/sec/tsp/cmd
+    chmod 0664 /sys/class/sec/tsp/cmd
+
+    # for touch key
+    chown system system /sys/class/sec/sec_touchkey/touchkey_threshold
+    chmod 0664 /sys/class/sec/sec_touchkey/touchkey_threshold
+	
+    #mdnie
+    chown system system /sys/class/lcd/panel/tuning
+    chmod 0644 /sys/class/backlight/lcd/panel/tuning
+
+    chown system media_rw /sys/class/mdnie/mdnie/scenario
+    chmod 0664 /sys/class/mdnie/mdnie/scenario
+    chown system media_rw /sys/class/mdnie/mdnie/outdoor
+    chmod 0664 /sys/class/mdnie/mdnie/outdoor
+    chown system system /sys/class/mdnie/mdnie/negative
+    chmod 0664 /sys/class/mdnie/mdnie/negative
+    chown system system /sys/class/mdnie/mdnie/cabc
+    chmod 0664 /sys/class/mdnie/mdnie/cabc
+
+    #cpu
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/power/cpufreq_table
+
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0444 /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+    chmod 0660 /sys/power/cpufreq_table
+
+    #hotplug
+    chown system system /sys/devices/system/cpu/hotplug/bound_freq
+    chown system system /sys/devices/system/cpu/hotplug/load_h0
+    chown system system /sys/devices/system/cpu/hotplug/load_l1
+    chown system system /sys/devices/system/cpu/hotplug/lock
+    chown system system /sys/devices/system/cpu/cpu1/online
+
+    chmod 0644 /sys/devices/system/cpu/hotplug/bound_freq
+    chmod 0644 /sys/devices/system/cpu/hotplug/load_h0
+    chmod 0644 /sys/devices/system/cpu/hotplug/load_l1
+    chmod 0644 /sys/devices/system/cpu/hotplug/lock
+    chmod 0644 /sys/devices/system/cpu/cpu1/online
+
+    #ddr
+    chown system system /sys/class/devfreq/devfreq-ddr/polling_interval
+    chown system system /sys/class/devfreq/devfreq-ddr/min_freq
+    chown system system /sys/class/devfreq/devfreq-ddr/max_freq
+    chown system system /sys/class/devfreq/devfreq-ddr/governor
+    chown system system /sys/class/devfreq/devfreq-ddr/cur_freq
+
+    #Battery
+    chown system radio /sys/class/power_supply/battery/batt_reset_soc
+    chown system radio /sys/class/power_supply/battery/update
+    chown system radio /sys/class/power_supply/battery/siop_activated
+    chown system radio /sys/class/power_supply/battery/siop_level
+
+    #thermistor
+    chown radio system /sys/devices/platform/sec-thermistor/temp_adc
+    chown radio system /sys/devices/platform/sec-thermistor/temperature
+
+    #vpu
+    chown system system /sys/class/devfreq/devfreq-vpu/userspace/set_freq
+    chown system system /sys/class/devfreq/devfreq-vpu/min_freq
+    chown system system /sys/class/devfreq/devfreq-vpu/max_freq
+
+    #keypad wakeup source
+    chown system system /sys/devices/platform/pxa27x-keypad/power/wakeup
+    chmod 664 /sys/devices/platform/pxa27x-keypad/power/wakeup
+
+    #pm800_headset source
+    chown system system /proc/driver/pm800_headset
+
+    #lcd for dip channel
+    chmod 664 /sys/devices/platform/pxa168-fb.0/lcd    
+    chown system system /sys/devices/platform/pxa168-fb.0/lcd
+
+    chmod 440 /sys/devices/platform/pxa168-fb.0/power/runtime_status
+    chown radio system /sys/devices/platform/pxa168-fb.0/power/runtime_status
+
+    #cpu&ddr for dip channel
+    chmod 664 /sys/devices/platform/devfreq-ddr/devfreq/devfreq-ddr/min_freq
+    chmod 664 /sys/devices/platform/devfreq-ddr/devfreq/devfreq-ddr/max_freq   
+    chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/platform/devfreq-ddr/devfreq/devfreq-ddr/min_freq
+    chown system system /sys/devices/platform/devfreq-ddr/devfreq/devfreq-ddr/min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+    #lcd for dip channel
+    chmod 664 /sys/devices/platform/pxa168-fb.0/lcd
+    chown system system /sys/devices/platform/pxa168-fb.0/lcd
+
+    #ddr for dip channel
+    chmod 664 /sys/class/devfreq/devfreq-ddr/min_freq
+    chmod 664 /sys/class/devfreq/devfreq-ddr/max_freq
+
+    #lvds for dip channel
+    chmod 664 /sys/class/graphics/fb0/device/lvds_clk_switch
+    chown system system /sys/class/graphics/fb0/device/lvds_clk_switch
+    #pm runtime
+    chown system system /sys/bus/i2c/devices/1-0020/power/control
+    chown system system /sys/bus/i2c/devices/4-0020/power/control
+    chown system system /sys/devices/platform/pxa168-fb.0/power/control
+    chown system system /sys/devices/platform/pxa168-fb.1/power/control
+    chown system system /sys/devices/platform/mrvl8xxx_fm.0/power/control
+    chown system system /sys/devices/platform/Sec_BattMonitor/power/control
+    #autosleep
+    chown system system /sys/power/autosleep
+
+    chown system system /sys/class/power_supply/battery/device/calibration
+    chown system system /proc/driver/sirf
+
+    chown system system /sys/class/graphics/fb0/device/vsync
+    chmod 0660 /sys/class/graphics/fb0/device/vsync
+
+    #GSSP device
+    chown system system /proc/driver/pcm_mfp
+    chmod 0666 /proc/driver/pcm_mfp
+
+    # master/slave
+    chown system system /proc/driver/ssp_master
+    chmod 0666 /proc/driver/ssp_master
+
+    chown system system /proc/driver/gssp_master
+    chmod 0666 /proc/driver/gssp_master
+
+    #set ap as master, codec/BT as slave
+    setprop persist.audio.apmaster 1
+    setprop persist.audio.gsspmaster 1
+    setprop persist.audio.codecmaster 0
+    setprop persist.bt.pcmmaster 0
+
+    #enable DRM service
+    setprop drm.service.enabled true
+
+    #TSP resume/suspend control
+    write /sys/bus/i2c/devices/1-0020/power/control on
+    write /sys/bus/i2c/devices/4-0020/power/control on
+
+    chown system system /sys/bus/i2c/drivers/fsa9480/7-0025/syssleep
+    chmod 0664 /sys/bus/i2c/drivers/fsa9480/7-0025/syssleep
+
+# IR_LED
+    chown system radio /sys/class/sec/sec_ir/ir_send
+    chown system radio /sys/class/sec/sec_ir/ir_send_result
+
+on fs
+    # for e2fsck bad block of /data partition before mount
+    mount_all /fstab.pxa988
+
+    mount debugfs debugfs /sys/kernel/debug
+    chown radio system /efs
+    chmod 0771 /efs
+
+on post-fs
+    chown system system /sys/devices/platform/galcore/power/control
+    # gpu
+    chown system system /sys/devices/platform/galcore/gpu/gpu0/gpufreq/scaling_cur_governor
+    chown system system /sys/devices/platform/galcore/gpu/gpu0/gpufreq/scaling_min_freq
+    chown system system /sys/devices/platform/galcore/gpu/gpu0/gpufreq/scaling_max_freq
+
+    chown radio system /efs
+    chmod 0771 /efs
+    
+    symlink /dev/block/mmcblk0p7 /dev/block/param
+
+on post-fs-data
+    setprop vold.post_fs_data_done 1
+
+    # MTP permission
+    chmod 0660 /dev/usb_mtp_gadget
+    chown system mtp /dev/usb_mtp_gadget
+    mkdir /dev/socket/mtp 0770 system mtp
+
+    # Audio Calibration: for socket access
+    mkdir /data/misc/audio 0750 media system
+
+on boot
+    setprop ro.media.gst.enabled 1
+    setprop service.camera.af 1
+
+    # enable bluetooth dial-up network
+    setprop ro.bluetooth.dun true
+    # NFC
+    setprop ro.nfc.port "I2C"
+    chmod 0777 /dev/pn547
+    chown nfc nfc /dev/pn547
+
+on property:persist.sys.dump.enable=1
+    write /sys/power/panic CRASH_ENABLE
+
+on fs
+    # For Datarouter
+    chown system system /dev/dun
+    chown system system /dev/ttyGS0
+    chown system system /dev/ttyGS1
+    chown system system /dev/ttyGS2
+    chown system system /dev/ttyGS3
+
+service sensord /system/bin/sensord
+    class main
+    user system
+    group system
+
+service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p15 /dev/block/mmcblk0p12
+    class main
+    user root
+    group root
+    oneshot
+
+service phservice /system/bin/phservice
+    class main
+    user system
+    group system input
+
+service rtccd /system/bin/rtccd3 -a 350M
+    class core
+    user root
+    oneshot
