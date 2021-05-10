@@ -41,6 +41,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/egl/gfx.cfg:system/etc/gfx.cfg
 
+# Props
+TARGET_SYSTEM_PROP := $(COMMON_PATH)/system.prop
+
 # Rootdir
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,${COMMON_PATH}/rootdir/,root/)
