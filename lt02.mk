@@ -25,7 +25,7 @@ PRODUCT_AAPT_CONFIG := mdpi hdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # ADB
-ADDITIONAL_DEFAULT_PROPERTIES += \
+PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=adb \
     ro.adb.secure=0 \
     ro.secure=0
